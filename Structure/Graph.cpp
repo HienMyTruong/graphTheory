@@ -55,16 +55,17 @@ bool isCycle(Graph *graph)
     // initialize all subsets as single element sets
     memset(parent, -1, sizeof(int) * graph->V);
 
-    for (int i = 0; i < graph->E; i++)
+    for (int i = 0; i < graph->E; ++i)
     {
         int start = find(parent, graph->edge[i].source);
         int finish = find(parent, graph->edge[i].destination);
 
         if (start == finish)
         {
-            Union(parent, start, finish);
+
             return true;
-                }
+            Union(parent, start, finish);
+        }
     }
     return false;
 }
@@ -91,14 +92,14 @@ int main()
     graph->edge[1].source = 1;
     graph->edge[1].destination = 2;
 
-    // add edge 0-2
-    graph->edge[2].source = 0;
-    graph->edge[2].destination = 2;
+    // add edge 2-0
+    graph->edge[2].source = 2;
+    graph->edge[2].destination = 0;
 
-    if (isCycle(graph) == true)
-        cout << "graph contains cycle";
+    if (isCycle(graph))
+        cout << "contains cycle";
     else
-        cout << "graph doesn't contain cycle";
+        cout << "doesn't contain cycle";
 
     return 0;
 }
