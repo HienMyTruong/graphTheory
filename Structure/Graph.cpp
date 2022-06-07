@@ -80,4 +80,24 @@ int main()
     */
     int V = 3;
     int E = 3;
+    Graph *graph = createGraph(V, E);
+
+    // add edge 0-1
+    graph->edge[0].source = 0;
+    graph->edge[0].dest = 1;
+
+    // add edge 1-2
+    graph->edge[1].source = 1;
+    graph->edge[1].dest = 2;
+
+    // add edge 0-2
+    graph->edge[2].source = 0;
+    graph->edge[2].dest = 2;
+
+    if (isCycle(graph))
+        cout << "graph contains cycle";
+    else
+        cout << "graph doesn't contain cycle";
+
+    return 0;
 }
