@@ -64,8 +64,8 @@ bool isCycle(Graph *graph)
         {
 
             return true;
-            Union(parent, start, finish);
         }
+        Union(parent, start, finish);
     }
     return false;
 }
