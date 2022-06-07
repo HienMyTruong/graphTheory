@@ -5,7 +5,7 @@ using namespace std;
 class Edge
 {
 public:
-    int src, dest;
+    int source, dest;
 };
 
 // a structure to represent a graph
@@ -47,11 +47,37 @@ void Union(int parent[], int subset1, int subset2)
     parent[subset1] = subset2;
 }
 
-int isCycle(Graph *graph)
+bool isCycle(Graph *graph)
 {
     // allocates an amount of memory needed to store the creation of V subsets
     int *parent = new int[graph->V * sizeof(int)];
     // converts value of sizeof(int) * graph->V to unassigned char
     // initialize all subsets as single element sets
     memset(parent, -1, sizeof(int) * graph->V);
+
+    for (int i = 0; i < graph->E; i++)
+    {
+        int start = find(parent, graph->edge[i].source);
+        int finish = find(parent, graph->edge[i].dest);
+
+        if (start == finish)
+        {
+            return true;
+            Union(parent, start, finish);
+        }
+    }
+    return false;
+}
+
+int main()
+{
+
+    /*
+    0
+    | \
+    |  \
+    1---2
+    */
+    int V = 3;
+    int E = 3;
 }
