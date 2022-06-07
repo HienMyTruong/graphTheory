@@ -5,7 +5,7 @@ using namespace std;
 class Edge
 {
 public:
-    int source, dest;
+    int source, destination;
 };
 
 // a structure to represent a graph
@@ -58,7 +58,7 @@ bool isCycle(Graph *graph)
     for (int i = 0; i < graph->E; i++)
     {
         int start = find(parent, graph->edge[i].source);
-        int finish = find(parent, graph->edge[i].dest);
+        int finish = find(parent, graph->edge[i].destination);
 
         if (start == finish)
         {
@@ -78,21 +78,22 @@ int main()
     |  \
     1---2
     */
+
     int V = 3;
     int E = 3;
     Graph *graph = createGraph(V, E);
 
     // add edge 0-1
     graph->edge[0].source = 0;
-    graph->edge[0].dest = 1;
+    graph->edge[0].destination = 1;
 
     // add edge 1-2
     graph->edge[1].source = 1;
-    graph->edge[1].dest = 2;
+    graph->edge[1].destination = 2;
 
     // add edge 0-2
     graph->edge[2].source = 0;
-    graph->edge[2].dest = 2;
+    graph->edge[2].destination = 2;
 
     if (isCycle(graph))
         cout << "graph contains cycle";
