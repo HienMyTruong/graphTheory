@@ -62,9 +62,9 @@ bool isCycle(Graph *graph)
 
         if (start == finish)
         {
-            return true;
             Union(parent, start, finish);
-        }
+            return true;
+                }
     }
     return false;
 }
@@ -95,7 +95,7 @@ int main()
     graph->edge[2].source = 0;
     graph->edge[2].destination = 2;
 
-    if (isCycle(graph))
+    if (isCycle(graph) == true)
         cout << "graph contains cycle";
     else
         cout << "graph doesn't contain cycle";
