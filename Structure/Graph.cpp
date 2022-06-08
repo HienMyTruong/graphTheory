@@ -190,12 +190,12 @@ void testNegativeCycleBellamnFord()
     // add edge 0-2
     graph->edge[1].source = 0;
     graph->edge[1].destination = 2;
-    graph->edge[1].weight = 4;
+    graph->edge[1].weight = -4;
 
     // add edge 1-2
     graph->edge[2].source = 1;
     graph->edge[2].destination = 2;
-    graph->edge[2].weight = 3;
+    graph->edge[2].weight = -3;
 
     // add edge 1-3
     graph->edge[3].source = 1;
@@ -205,12 +205,12 @@ void testNegativeCycleBellamnFord()
     // add edge 1-4
     graph->edge[4].source = 1;
     graph->edge[4].destination = 4;
-    graph->edge[4].weight = 2;
+    graph->edge[4].weight = -2;
 
     // add edge 3-2
     graph->edge[5].source = 3;
     graph->edge[5].destination = 2;
-    graph->edge[5].weight = 5;
+    graph->edge[5].weight = -5;
 
     // add egde 3-1
     graph->edge[6].source = 3;
