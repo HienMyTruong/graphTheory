@@ -19,8 +19,16 @@ public:
     Edge *edge;
 };
 
+class Subset
+{
+public:
+    int parent;
+    int rank;
+};
+
 // creates a graph with V vertices and E edges
-Graph *createGraph(int V, int E)
+Graph *
+createGraph(int V, int E)
 {
     Graph *graph = new Graph();
     graph->V = V;
@@ -69,6 +77,89 @@ int find(int parent[], int val)
 void Union(int parent[], int subset1, int subset2)
 {
     parent[subset1] = subset2;
+}
+/*
+A worse case senario for the union-find function would be the following:
+
+let there be 4 elements 0, 1 , 2, 3 and they are all single element subsets
+
+if we do union(0, 1 )
+1 2 3
+|
+0
+
+Union(1, 2)
+
+2  3
+|
+1
+|
+0
+
+Union(2,3)
+3
+|
+2
+|
+1
+|
+0
+
+The operations above can be optimized to O(log n) in worst case
+The idea is to always attach smaller depth tree under the root of the deeper tree
+- Union by rank
+by rank we mean size or height
+
+Let the subset {0, 1, .. 9} be represented as below and find() is called
+for element 3.
+             9
+         /   |   \
+        4    5    6
+       /         /  \
+      0         7    8
+     /
+    3
+   / \
+  1   2
+When find() is called for 3, we traverse up and find 9 as representative
+of this subset. With path compression, we also make 3 and 0 as the child of 9 so
+that when find() is called next time for 0, 1, 2 or 3, the path to root is reduced.
+
+        --------9-------
+      /   /    /  \      \
+     0   4    5    6       3
+                  /  \    /  \
+                 7    8   1   2
+
+
+
+
+*/
+
+int optimizedFind(Subset subsets[], int element)
+{
+    if (subsets[element].parent != element)
+    {
+        subsets[element].parent = optimizedFind(subsets, subsets[element].parent);
+    }
+    return subsets[element].parent;
+}
+void optimizedUnion(Subset subsets[], int set1, int set2)
+{
+    if (subsets[set1].rank < subsets[set2].rank)
+    {
+        subsets[set1].parent = set2;
+    }
+    else if (subsets[set1].rank > subsets[set2].rank)
+    {
+        subsets[set2].parent = set1;
+    }
+    else
+    {
+        // if the ranks are the same then make one as rootand increase its size/rank by one
+        subsets[set2].parent = set1;
+        subsets[set1].rank++;
+    }
 }
 
 bool isCycle(Graph *graph)
@@ -230,7 +321,8 @@ void testNegativeCycleBellamnFord()
 
 int main()
 {
-    // testIsCycle();
-    testNegativeCycleBellamnFord();
+    testIsCycle();
+    // testNegativeCycleBellamnFord();
+
     return 0;
 }
